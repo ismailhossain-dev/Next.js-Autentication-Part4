@@ -1,21 +1,10 @@
-//V:1, 2 Next auth all work
+//V:1, 2 Next auth all Login work
+import { dbConnect } from "@/lib/dbConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-//user list
-const userList = [
-  {
-    name: "hablu",
-    password: "1234",
-  },
-  {
-    name: "dablu",
-    password: "5678",
-  },
-  {
-    name: "bablue",
-    password: "8901",
-  },
-];
+//password ta hash chilo tai amra password ekane condition chalite partechi tai amra ferdous vai github teke eta antechi
+import bcrypt from "bcryptjs";
+
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -24,20 +13,22 @@ export const authOptions = {
       name: "Email & Password",
       //form input
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
-        //create me
-        secretCode: { label: "Secret code", type: "password", placeholder: "enter code" },
+        email: { label: "email", type: "email", placeholder: "Enter Email" },
+        password: { label: "Password", type: "password", placeholder: "Enter Password" },
       },
       //form submit value gola ekane pabo
       async authorize(credentials, req) {
-        const { username, password, secretCode } = credentials;
-        //login logic implement
-        const user = userList.find((u) => u.name === username);
+        const { password } = credentials;
+        //connect with database
+        //amra database users Collection ta access kortechi and ekane find kortesi email ase kina
+        const user = await dbConnect("users").findOne({ email });
+
         if (!user) return null;
         //user jodi take & user password er input password ta match korle amra eta nivo
-        const isPassword = user.password === password;
-        if (isPassword) {
+
+        //match password
+        const isPasswordOk = await bcrypt.compare(password, user?.password);
+        if (isPasswordOk) {
           return user;
         }
         //my own login logic

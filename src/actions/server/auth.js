@@ -1,4 +1,4 @@
-//I am writing sever code here for form
+//I am writing sever code here for form and work register
 "use server";
 
 import { dbConnect } from "@/lib/dbConnect";
@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 //postUser ta RegisterFrom from use korsi and postUser ja kichu disilam segola payload hisabe ekane paitechi
 export const postUser = async (payload) => {
   // clg ta terminal dekabe
-  console.log(payload);
+  // console.log(payload);
 
   //Register from perfect korar jorno 3 ta kaj korbo
   //1.check user exist or not //use ase kina nai seta check korsi findOne er mardome
@@ -36,6 +36,11 @@ export const postUser = async (payload) => {
     return {
       success: true,
       message: `user createed with ${result.insertedId.toString()}`,
+    };
+  } else {
+    return {
+      success: false,
+      message: "something was wrong",
     };
   }
 };

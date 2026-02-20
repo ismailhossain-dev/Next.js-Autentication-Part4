@@ -22,6 +22,7 @@ const RegisterForm = () => {
     };
 
     // console.log("Submitted Data:", formData);
+    //data ta auth.js payload hisabe pabo
     const result = await postUser(formData);
     alert(result.message);
   };
