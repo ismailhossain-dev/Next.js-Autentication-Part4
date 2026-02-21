@@ -17,7 +17,7 @@ export const postUser = async (payload) => {
       message: "user already existed",
     };
   }
-  //2.user jodi nake create new user korbo
+  //2.user jodi na take create new user korbo
   //ferdous vai github teke deke krsi
   //password ta ei kora hoyse just security jorno jathe password dekle o hack korthe na pare
   const hashPassword = await bcrypt.hash(payload.password, 10);
@@ -29,15 +29,16 @@ export const postUser = async (payload) => {
     role: "user",
     password: hashPassword,
   };
-  console.log(newUser);
+  // console.log(newUser);
   //3.send  user to database
   const result = await dbConnect("users").insertOne(newUser);
   if (result.acknowledged) {
     return {
       success: true,
-      message: `user createed with ${result.insertedId.toString()}`,
+      message: `user created with ${result.insertedId.toString()}`,
     };
-  } else {
+  } //if database off then show else
+  else {
     return {
       success: false,
       message: "something was wrong",

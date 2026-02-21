@@ -82,7 +82,7 @@ const RegisterForm = () => {
         <div className="flex flex-col space-y-1">
           <label>Password</label>
           <input
-            type="password"
+            type="text"
             name="password"
             placeholder="********"
             required

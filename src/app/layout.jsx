@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import NextAuthProvider from "@/provider/NextAuthProvider";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +24,8 @@ export default function RootLayout({ children }) {
     //authentication er jorno NextAuthProvider use
     <NextAuthProvider>
       <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className="">
+          <Navbar />
           {children}
         </body>
       </html>
