@@ -52,6 +52,7 @@ export const authOptions = {
   ],
 
   //user ke jodi block kori and jodi user abr login korte chay tahole login hobe na
+  //callback amr role diye validation kortechi
   callbacks: {
     async jwt({ token, user }) {
       // 'user' is only available the very first time (at login)
